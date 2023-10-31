@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "esbuild index.js --sourcemap --bundle  --outdir=static/index.js --servedir=static"
+    "start": "esbuild index.js --sourcemap --bundle --outdir=build --servedir=.",
+    "build": "esbuild index.js --minify --outdir=build"
   },
   "author": "",
   "license": "MIT",

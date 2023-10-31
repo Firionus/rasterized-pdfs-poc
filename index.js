@@ -29,7 +29,10 @@ async function onFileSelect(e) {
     let pdf = await pdfjs.getDocument(pdfData).promise;
 
     // Default export is a4 paper, portrait, using millimeters for units
-    const doc = new jsPDF();
+    const doc = new jsPDF({
+        putOnlyUsedFonts: true,
+        compress: true,
+    });
 
 
     console.log(pdf);
