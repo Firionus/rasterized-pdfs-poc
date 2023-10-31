@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "esbuild index.js --sourcemap --bundle --outdir=build --servedir=.",
-    "build": "esbuild index.js --minify --bundle --outdir=build"
+    "start": "esbuild index.js main.css --sourcemap --bundle --outdir=build --servedir=.",
+    "build": "esbuild index.js main.css --minify --bundle --outdir=build"
   },
   "author": "",
   "license": "MIT",
@@ -14,6 +14,7 @@
     "esbuild": "0.19.5"
   },
   "dependencies": {
+    "bulma": "^0.9.4",
     "jspdf": "^2.5.1",
     "pdfjs-dist": "^3.11.174"
   }
