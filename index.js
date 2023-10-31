@@ -91,5 +91,6 @@ async function onFileSelect(e) {
 
 document.getElementById("in").addEventListener("change", onFileSelect);
 
+document.getElementById("progress_bar").hidden = true;
 document.getElementById("in").hidden = false;
 document.getElementById("progress_indicator").innerHTML = "Please select a file";

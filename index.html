@@ -1,17 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <title>rasterized-pdfs-poc</title>
 </head>
+
 <body>
 
 
-  <input type="file" id="in" name="input" accept="application/pdf" hidden/>
+  <input type="file" id="in" name="input" accept="application/pdf" hidden />
+  <progress class="progress" id="progress_bar" value="0" max="1"></progress>
   <div id="progress_indicator">Loading JavaScript (approx. 2 MB), please wait...</div>
 
   <canvas id="canvas"></canvas>
 
-  <script src="build/index.js"></script>
+  <script>
+    // this script tag loads index.js
+    // by apsillers (https://stackoverflow.com/a/18126789) 
+    // licensed under https://creativecommons.org/licenses/by-sa/3.0/
+    var req = new XMLHttpRequest();
+
+    // report progress events
+    req.addEventListener("progress", function (event) {
+      if (event.lengthComputable) {
+        var percentComplete = event.loaded / event.total;
+        document.getElementById("progress_bar").value = percentComplete;
+        console.log("load progress", percentComplete);
+      } else {
+        console.log("Unable to compute progress information since the total size is unknown");
+      }
+    }, false);
+
+    // load responseText into a new script element
+    req.addEventListener("load", function (event) {
+      var e = event.target;
+      var s = document.createElement("script");
+      s.innerHTML = e.responseText;
+      // or: s[s.innerText!=undefined?"innerText":"textContent"] = e.responseText
+      document.documentElement.appendChild(s);
+
+      s.addEventListener("load", function () {
+        // this runs after the new script has been executed...
+      });
+    }, false);
+
+    req.open("GET", "build/index.js");
+    req.send();
+  </script>
 </body>
+
 </html>
