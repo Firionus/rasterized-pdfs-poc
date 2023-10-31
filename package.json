@@ -1,7 +1,7 @@
 {
-  "name": "goodnotes-compress",
+  "name": "rasterized-pdfs-poc",
   "version": "0.1.0",
-  "description": "Compress GoodNotes PDF output by rasterizing the PDF pages",
+  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
