@@ -68,7 +68,9 @@ async function onFileSelect(e) {
         )
     }
 
-    doc.save(`compressed_${fileName}`);
+    console.log(fileName);
+    let nameBeginning = fileName.substring(0, fileName.lastIndexOf("."));
+    doc.save(`${nameBeginning} rasterized.pdf`);
     
 
    document.getElementById("progress_indicator").innerHTML = "Done. Document was downloaded to your computer.";
