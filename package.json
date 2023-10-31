@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "esbuild index.js --sourcemap --bundle --outdir=build --servedir=.",
-    "build": "esbuild index.js --minify --outdir=build"
+    "build": "esbuild index.js --minify --bundle --outdir=build"
   },
   "author": "",
   "license": "MIT",
