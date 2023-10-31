@@ -1,0 +1,19 @@
+{
+  "name": "goodnotes-compress",
+  "version": "0.1.0",
+  "description": "Compress GoodNotes PDF output by rasterizing the PDF pages",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "esbuild index.js --sourcemap --bundle  --outdir=static/index.js --servedir=static"
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "esbuild": "0.19.5"
+  },
+  "dependencies": {
+    "jspdf": "^2.5.1",
+    "pdfjs-dist": "^3.11.174"
+  }
+}
