@@ -7,16 +7,25 @@ pdfjs.GlobalWorkerOptions.workerSrc = pdfjsWorker;
 console.log("Hello World");
 
 const canvas = document.getElementById("canvas");
+const processing_text = document.getElementById("processing_text");
+const processing_bar = document.getElementById("processing_bar");
+const file_input = document.getElementById("in");
 
+function Sleep(milliseconds) {
+    return new Promise(resolve => setTimeout(resolve, milliseconds));
+    }
 
-async function onFileSelect(e) {
-    console.log(e);
+async function onFileSelect() {
+    if (file_input.files.length == 0) {return}
 
-    let pdfFile = this.files[0];
+    document.getElementById("done_section").style.display = "none";
+    document.getElementById("select_file_section").style.display = "none";
+    processing_text.innerHTML = "Processing..."
+    document.getElementById("processing_section").style.display = "block";
+
+    let pdfFile = file_input.files[0];
     let fileName = pdfFile.name;
     console.log("file is", pdfFile);
-
-    document.getElementById("progress_indicator").innerHTML = `Processing ${fileName} ...`;
 
     // Convert to images
 
@@ -28,12 +37,13 @@ async function onFileSelect(e) {
     console.log(pdfData);
     let pdf = await pdfjs.getDocument(pdfData).promise;
 
-
-
-
     console.log(pdf);
 
     for (let pageNumber = 1; pageNumber <= pdf.numPages; pageNumber++) {
+
+        processing_text.innerHTML = `Processing page ${pageNumber} of ${pdf.numPages}...`;
+        processing_bar.value = (pageNumber-.5)/pdf.numPages;
+
         let page = await pdf.getPage(pageNumber);
         var scale = 2;
         var viewport = page.getViewport({ scale: scale });
@@ -48,6 +58,9 @@ async function onFileSelect(e) {
             viewport: viewport
         };
         await page.render(renderContext).promise;
+
+        // needed to let the browser update the canvas for the user
+        await new Promise(resolve => setTimeout(resolve, 0));
 
         const width = viewport.width/scale; // in pt
         const height = viewport.height/scale; // in pt
@@ -69,6 +82,9 @@ async function onFileSelect(e) {
         } else {
             doc.addPage([width, height], orientation);
         }
+
+        // await Sleep(0);
+
         doc.addImage(
             canvas,
             "PNG",
@@ -85,12 +101,16 @@ async function onFileSelect(e) {
     let nameBeginning = fileName.substring(0, fileName.lastIndexOf("."));
     doc.save(`${nameBeginning} rasterized.pdf`);
 
+    document.getElementById("select_file_section").style.display = "flex";
+    document.getElementById("done_section").style.display = "block";
+    document.getElementById("processing_section").style.display = "none";
 
-    document.getElementById("progress_indicator").innerHTML = "Done. Document was downloaded to your computer.";
+    document.getElementById("file_select_label").innerHTML = "Choose another file…"
+
+    file_input.value = "";
 }
 
 document.getElementById("in").addEventListener("change", onFileSelect);
 
-document.getElementById("progress_bar").style.display = 'none';
-document.getElementById("in").hidden = false;
-document.getElementById("progress_indicator").innerHTML = "Please select a file";
+document.getElementById("loading_section").style.display = 'none';
+document.getElementById("select_file_section").style.display = "flex";

@@ -9,12 +9,50 @@
 </head>
 
 <body>
-  <div class="container is-max-desktop" style="padding: 3rem">
-    <input type="file" id="in" name="input" accept="application/pdf" hidden />
-    <progress class="progress" id="progress_bar" value="0" max="1"></progress>
-    <div id="progress_indicator">Loading JavaScript (approx. 2 MB), please wait...</div>
-  
-    <canvas id="canvas"></canvas>
+  <div class="container is-max-desktop content" style="padding: 3rem">
+    <h1>rasterized-pdfs-poc</h1>
+
+    <p style="margin-bottom: 2em;"">
+      Takes a PDF, rasterizes it, and outputs a PDF again. 
+      <br>
+      This is useful, e.g., for
+    compressing PDFs with lots of vector handwriting, such as exported by Notability or GoodNotes.
+    </p>
+
+    <div id="loading_section">
+      <div id="progress_indicator">Loading JavaScript (approx. 2 MB), please wait...</div>
+      <progress class="progress" id="progress_bar" value="0" max="1"></progress>
+    </div>
+
+    <div id="processing_section"  style="display: none">
+      <div id="processing_text">Processing...</div>
+      <progress class="progress" id="processing_bar" value="0" max="1"></progress>
+      <canvas id="canvas" style="
+      width: 15rem; 
+      margin-top: 2rem; 
+      margin-left: auto; 
+      margin-right: auto; 
+      display: block;"">
+    </canvas> 
+    </div>
+
+    <div id="done_section"  style="display: none">
+      <p class="notification is-success">🎉Done🎉 <br> Document was downloaded to your computer.</p>
+    </div>
+
+    <div id="select_file_section" style="display: none; margin-top: 2em;" class="columns is-centered is-mobile">
+      <div class="file is-info column is-narrow">
+        <label class="file-label">
+          <input id="in" class="file-input" type="file" name="input" accept="application/pdf">
+          <span class="file-cta">
+            <span class="file-label" id="file_select_label">
+              Choose a file…
+            </span>
+          </span>
+        </label>
+      </div>
+    </div>
+
   </div>
 
 
