@@ -45,7 +45,7 @@ async function onFileSelect() {
         processing_bar.value = (pageNumber-.5)/pdf.numPages;
 
         let page = await pdf.getPage(pageNumber);
-        var scale = 2;
+        var scale = document.getElementById("dpi_input").value/72;
         var viewport = page.getViewport({ scale: scale });
 
         // Prepare canvas using PDF page dimensions
