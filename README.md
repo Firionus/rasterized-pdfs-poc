@@ -7,3 +7,9 @@ compressing PDFs with lots of vector handwriting.
 [Try it here](https://firionus.github.io/rasterized-pdfs-poc/)
 
 Do not expect support or continued development, this is a one-off project. 
+
+## Development
+
+- You can set up the pinned node version with [Volta](https://volta.sh/)
+- Run `npm ci` for a clean install of node_modules
+- Use the npm scripts from [package.json](package.json)
